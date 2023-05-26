@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Short Blog</title>
+</head>
+<body>
+<h1>Collapse Blog</h1>
+<a href="/create">Create Blog</a>
+
+<th:block th:each="blog : ${blogs}">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 5px; margin-bottom: 10px; border: 1px solid black; padding: 5px">
+        <div>
+            <p th:text="${blog.title}"></p>
+            <p th:text="${blog.getPostDate()}"></p>
+        </div>
+        <div style="display: flex; gap: 2px">
+            <a th:href="@{'/detail/' + ${blog.getId()}}">Detail</a>
+            <a th:href="@{'/edit/' + ${blog.getId()}}">Edit</a>
+            <a th:href="@{'/delete/' + ${blog.getId()}}">Delete</a>
+        </div>
+    </div>
+</th:block>
+
+
+</body>
+</html>

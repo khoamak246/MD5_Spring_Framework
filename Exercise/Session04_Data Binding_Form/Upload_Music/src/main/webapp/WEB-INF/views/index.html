@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Audio Manager</h1>
+<p>
+    <a th:href="@{/audio/create}">
+        Add new audio
+    </a>
+</p>
+<table id = "audios">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Audio</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="audio : ${audios}">
+        <td th:text="${audio.name}"></td>
+        <td th:text="${audio.description}"></td>
+        <td>
+            <audio th:src="@{'/audio/' + ${audio.url}}"  th:controls="true"></audio></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<h1>Detail Blog</h1>
+<a href="/">Back to Home</a>
+
+<div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; border: 1px solid black; padding: 5px">
+    <div>
+        <p th:text="${blog.title}"></p>
+        <p th:text="${blog.getPostDate()}"></p>
+    </div>
+    <div>
+       <p th:text="${blog.getContent()}"></p>
+    </div>
+</div>
+
+</body>
+</html>

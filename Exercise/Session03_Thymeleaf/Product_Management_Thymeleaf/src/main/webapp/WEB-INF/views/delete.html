@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Delete product</h1>
+<a th:href="@{/}">Back to home</a>
+<div id="form">
+  <form th:action="@{/product/confirm/{id}(id=${product.getId()})}" th:object="${product}"
+        method="POST" novalidate="novalidate">
+    <input type="hidden" th:field="*{id}" disabled/>
+    <div>
+      <label>Name</label>
+      <input type="text" th:field="*{name}" disabled/>
+    </div>
+    <div>
+      <label>Price</label>
+      <input type="email" th:field="*{price}" disabled/>
+    </div>
+    <div>
+      <label>Stock</label>
+      <input type="text" th:field="*{stock}" disabled/>
+    </div>
+    <input type="submit" value="Save"/>
+  </form>
+</div>
+</body>
+</html>
