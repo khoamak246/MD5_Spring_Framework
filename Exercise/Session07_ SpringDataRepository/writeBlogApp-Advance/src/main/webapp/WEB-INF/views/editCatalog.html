@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Catalog</title>
+</head>
+<body>
+<h1>Edit Catalog</h1>
+<a href="/catalog-list">Back to Catalog List</a>
+<form action="/catalog-edit" method="post" th:object="${catalog}">
+    <label for="name">Name</label>
+    <input type="text" id="name" th:field="*{name}">
+    <input type="text" th:field="*{catalogId}" hidden="hidden">
+    <button type="submit">Update</button>
+</form>
+
+
+</body>
+</html>

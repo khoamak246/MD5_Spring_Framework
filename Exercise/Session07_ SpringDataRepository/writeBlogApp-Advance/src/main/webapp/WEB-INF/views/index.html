@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Short Blog</title>
+</head>
+<body>
+<h1>Collapse Blog</h1>
+<a href="/catalog-list">Catalog List</a>
+<a href="/create">Create Blog</a>
+<a href="/create-catalog">Create Catalog</a>
+<th:block th:each="blog : ${blogs}">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 5px; margin-bottom: 10px; border: 1px solid black; padding: 5px">
+        <div>
+            <p th:text="${blog.title}"></p>
+            <p th:text="${blog.getPostDate()}"></p>
+        </div>
+        <div>
+            <p th:if="${blog.catalog != null}" th:text="${blog.catalog.name}" ></p>
+        </div>
+        <div style="display: flex; gap: 2px">
+            <a th:href="@{'/detail/' + ${blog.getId()}}">Detail</a>
+            <a th:href="@{'/edit/' + ${blog.getId()}}">Edit</a>
+            <a th:href="@{'/delete/' + ${blog.getId()}}">Delete</a>
+        </div>
+    </div>
+</th:block>
+
+<a th:if="${blogs.hasPrevious()}"  th:href="@{'/page/' + ${blogs.number - 1}}">Previous</a>
+<span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.totalPages}"></span>
+<a th:if="${blogs.hasNext()}"  th:href="@{'/page/' + ${blogs.number + 1}}">Next</a>
+
+</body>
+</html>

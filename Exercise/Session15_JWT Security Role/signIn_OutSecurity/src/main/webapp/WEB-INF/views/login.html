@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
+</head>
+<body>
+<h1>Login</h1>
+<form th:action="@{/api/auth/signin}" th:method="post">
+  <label for="username">Username</label>
+  <input type="text" id="username" name="username" placeholder="Input username...">
+  <label for="password">Password</label>
+  <input type="text" id="password" name="password" placeholder="Input password...">
+  <button type="submit" id="loginBtn">Login</button>
+</form>
+
+<script>
+  $("#loginBtn").click(function (event) {
+    event.preventDefault();
+    let username = $("#username").val();
+    let password = $("#password").val();
+    $.ajax({
+      url: "/api/auth/signup",
+      method: "POST",
+      data: JSON.stringify({username, password}),
+      contentType: 'application/json; charset=utf-8',
+      success: function () {
+        window.location.href = "/admin"
+      },
+      error: function (error) {
+        alert(error);
+      }
+    })
+  })
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Form</title>
+</head>
+<style>
+    .alert {
+        color: red;
+    }
+</style>
+<body>
+<h1>This is the best CSS form register!!!!</h1>
+
+<form action="/register" method="post" th:object="${user}">
+    <label for="firstName">First Name</label>
+    <input type="text" th:field="*{firstName}" id="firstName">
+    <p th:if="${#fields.hasErrors('firstName')}" th:error="*{firstName}" class="alert">Firstname not null and at least have 5 char and maximum is 45 char</p>
+
+
+    <label for="lastName">Last Name</label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+    <p th:if="${#fields.hasErrors('lastName')}" th:error="*{lastName}" class="alert">Lastname not null and at least have 5 char and maximum is 45 char</p>
+
+    <label for="age">Age</label>
+    <input type="number" th:field="*{age}" id="age">
+    <p th:if="${#fields.hasErrors('age')}" th:error="*{age}" class="alert">Age must at least 18</p>
+
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email">
+    <p th:if="${#fields.hasErrors('email')}" th:error="*{email}" class="alert">Email not match pattern</p>
+
+    <button type="submit">Register</button>
+</form>
+
+</body>
+</html>

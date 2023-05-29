@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Blog</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"
+    ></script>
+  </head>
+  <body>
+    <h1>All Blog</h1>
+    <form action="" method="post" style="margin-bottom: 20px">
+      <input type="text" id="search" placeholder="Search..." />
+      <button id="searchBtn" type="submit">Click</button>
+    </form>
+    <div id="blog-container"></div>
+    <button onclick="handleMore()">More</button>
+
+    <script>
+      function handleMore() {
+        getBlog("all");
+      }
+
+      $("#searchBtn").click((event) => {
+        event.preventDefault();
+        let searchValue = $("#search").val();
+        getBlog("search", searchValue);
+      });
+
+      $(document).ready(() => {
+        getBlog("getPage0");
+      });
+
+      function getBlog(action, data) {
+        let fetchUrl = "http://localhost:8080/api/v1/blog";
+        if (action === "search") {
+          fetchUrl += "/search/" + data;
+        } else if (action === "getPage0") {
+          fetchUrl += "/page/0";
+        }
+
+        $.ajax({
+          url: fetchUrl,
+          method: "GET",
+          dataType: "json",
+          success: function (data) {
+            let containerHtml = "";
+            data.data.forEach((val) => {
+              containerHtml += ` <div
+                                    style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    border: 1px solid black;
+                                    padding: 20px;
+                                    margin-bottom: 10px;
+                                    "
+                                >
+                                    <div>
+                                    <p>${val.title}</p>
+                                    </div>
+                                    <div>
+                                    <p>${val.postDate}</p>
+                                    </div>
+                                    <div>
+                                    <button id="${val.blogId}" onclick="handleOnClickDetail(this)">DETAIL</button>
+                                    </div>
+                                </div>`;
+            });
+
+            $("#blog-container").html(containerHtml);
+          },
+          error: function (error) {
+            alert(error);
+          },
+        });
+      }
+
+      function handleOnClickDetail(e) {
+        let id = e.getAttribute("id");
+        blogDetail(id);
+      }
+
+      function handleOnClickBack() {
+        getBlog();
+      }
+
+      function blogDetail(data) {
+        $.ajax({
+          url: "http://localhost:8080/api/v1/blog/" + data,
+          method: "GET",
+          dataType: "json",
+          success: function (data) {
+            let containerHtml = "";
+            containerHtml += ` <div
+                                    style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    border: 1px solid black;
+                                    padding: 20px;
+                                    margin-bottom: 10px;
+                                    "
+                                >
+                                    <div>
+                                    <p>${data.data.title}</p>
+                                    </div>
+                                    <div>
+                                    <p>${data.data.content}</p>
+                                    </div>
+                                    <div>
+                                    <p>${data.data.postDate}</p>
+                                    </div>
+                                </div>`;
+            containerHtml += `<button onclick="handleOnClickBack()">Back to list blog</button>`;
+            $("#blog-container").html(containerHtml);
+          },
+          error: function (error) {
+            console.log(error);
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

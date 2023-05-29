@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+<h2 th:text="${order.getLocalDate().toString()}"></h2>
+<table border="1">
+    <tr>
+        <td>Name</td>
+        <td>Price</td>
+    </tr>
+    <th:block th:each="product:${order.cart}">
+        <tr>
+            <td th:text="${product.getKey().name}"></td>
+            <td th:text="${product.getKey().price}"></td>
+        </tr>
+    </th:block>
+    <tr>
+        <td>Total</td>
+        <td th:text="${order.getTotal()}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -52,6 +52,7 @@ public class CustomerController {
 //    }
     @GetMapping("/customers")
     public ModelAndView listCustomers(@RequestParam("search") Optional<String> search, Pageable pageable ){
+        System.out.println("in");
         Page<Customer> customers;
         if(search.isPresent()){
             customers = customerService.findAllByFirstNameContaining(search.get(), pageable);
